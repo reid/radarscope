@@ -15,12 +15,12 @@ class MBLWebServiceClient {
 
             $data = @file_get_contents($url);
 
-            if (empty($data) || !is_array(json_decode($data, true))) { // fetch failed, use cached data
+            if (!self::validate($data)) { // fetch failed, use cached data
                 touch($file);
                 return file_get_contents($file);
             }
 
-            $tmp = tempnam($cache_dir, 'RBF');
+            $tmp = tempnam($cache_dir, 'MBL');
             file_put_contents($tmp, $data);
             rename($tmp, $file);
 
@@ -31,6 +31,24 @@ class MBLWebServiceClient {
             return file_get_contents($file);
 
         }
+
+    }
+
+    static protected function validate ($data) {
+
+        if (!empty($data)) {
+
+            $json = json_decode($data, true);
+
+            if (
+                is_array($json) &&
+                array_key_exists('event', $json) &&
+                count($json['event']) > 0
+            ) return true;
+
+        }
+
+        return false;
 
     }
 
