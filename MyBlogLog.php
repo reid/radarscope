@@ -48,26 +48,26 @@ class MyBlogLog {
             switch ($entry['name']) {
                 case 'twitter':
                     $row['content'] = $entry['message'];
-                    $row['source'] = 'http://twitter.com/' . $row['username'];
+                    $row['source'] = 'http://twitter.com/' . $entry['username'];
                     break;
                 case 'flickr_latest':
                     $row['site'] = 'flickr';
                     $row['content'] = '<a href="' . $entry['image_link'] . '" class="flickrd"><img src="' . $entry['thumbnail_src'] . '" alt="' . $entry['title'] . '"></a>';
-                    $row['source'] = 'http://flickr.com/photos/' . $row['username'] . '/';
+                    $row['source'] = 'http://flickr.com/photos/' . $entry['username'] . '/';
                     break;
                 case 'delicious':
                     $row['content'] = '<a href="' . $entry['url'] . '">' . $entry['title'] . '</a>';
                     $row['content'] .= '<p>' . $entry['description'] . '</p>';
-                    $row['source'] = 'http://delicious.com/' . $row['username'];
+                    $row['source'] = 'http://delicious.com/' . $entry['username'];
                     break;
                 case 'youtube':
                     $row['content'] = '<a href="' . $entry['url'] . '" class="vid"><img src="' . $entry['thumbnail_url'] . '" alt="' . $entry['title'] . '"></a>';
-                    $row['source'] = 'http://youtube.com/' . $row['username'];
+                    $row['source'] = 'http://youtube.com/' . $entry['username'];
                     break;
                 case 'lastfm':
                     $track = urldecode(substr($entry['url'], strrpos($entry['url'], '/') + 1));
                     $row['content'] = 'Listened to <a href="' . $entry['url'] . '">' . $track . '</a> by ' . $entry['artist'];
-                    $row['source'] = 'http://last.fm/user/' . $row['username'];
+                    $row['source'] = 'http://last.fm/user/' . $entry['username'];
                     break;
                 case 'netflix':
                     $row['content'] = '<a href="' . $entry['url'] . '">' . $entry['title'] . '</a>';
